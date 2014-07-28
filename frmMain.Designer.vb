@@ -25,13 +25,14 @@ Partial Class frmMain
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmMain))
         Me.ntfyIcon = New System.Windows.Forms.NotifyIcon(Me.components)
+        Me.WebSession1 = New Awesomium.Windows.Forms.WebSessionProvider(Me.components)
         Me.NsTheme1 = New Synology_DDSM.NSTheme()
+        Me.WebControl1 = New Awesomium.Windows.Forms.WebControl(Me.components)
         Me.imgSSH = New System.Windows.Forms.PictureBox()
         Me.imgSettings = New System.Windows.Forms.PictureBox()
         Me.btnMin = New Synology_DDSM.NSControlButton()
         Me.btnMax = New Synology_DDSM.NSControlButton()
         Me.btnClose = New Synology_DDSM.NSControlButton()
-        Me.WebBrowser1 = New System.Windows.Forms.WebBrowser()
         Me.btnSSH = New Synology_DDSM.NSButton()
         Me.btnSettings = New Synology_DDSM.NSButton()
         Me.NsTheme1.SuspendLayout()
@@ -48,18 +49,23 @@ Partial Class frmMain
         Me.ntfyIcon.Text = "Synology DSM"
         Me.ntfyIcon.Visible = True
         '
+        'WebSession1
+        '
+        Me.WebSession1.DataPath = "Store"
+        Me.WebSession1.Views.Add(Me.WebControl1)
+        '
         'NsTheme1
         '
         Me.NsTheme1.AccentOffset = 42
         Me.NsTheme1.BackColor = System.Drawing.Color.FromArgb(CType(CType(50, Byte), Integer), CType(CType(50, Byte), Integer), CType(CType(50, Byte), Integer))
         Me.NsTheme1.BorderStyle = System.Windows.Forms.FormBorderStyle.None
         Me.NsTheme1.Colors = New Synology_DDSM.Bloom(-1) {}
+        Me.NsTheme1.Controls.Add(Me.WebControl1)
         Me.NsTheme1.Controls.Add(Me.imgSSH)
         Me.NsTheme1.Controls.Add(Me.imgSettings)
         Me.NsTheme1.Controls.Add(Me.btnMin)
         Me.NsTheme1.Controls.Add(Me.btnMax)
         Me.NsTheme1.Controls.Add(Me.btnClose)
-        Me.NsTheme1.Controls.Add(Me.WebBrowser1)
         Me.NsTheme1.Controls.Add(Me.btnSSH)
         Me.NsTheme1.Controls.Add(Me.btnSettings)
         Me.NsTheme1.Customization = ""
@@ -79,6 +85,16 @@ Partial Class frmMain
         Me.NsTheme1.Text = "Synology Desktop DSM"
         Me.NsTheme1.TransparencyKey = System.Drawing.Color.Empty
         Me.NsTheme1.Transparent = False
+        '
+        'WebControl1
+        '
+        Me.WebControl1.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.WebControl1.Location = New System.Drawing.Point(3, 34)
+        Me.WebControl1.NavigationInfo = Awesomium.Core.NavigationInfo.None
+        Me.WebControl1.Size = New System.Drawing.Size(641, 363)
+        Me.WebControl1.TabIndex = 5
         '
         'imgSSH
         '
@@ -148,17 +164,6 @@ Partial Class frmMain
         Me.btnClose.TabIndex = 1
         Me.btnClose.Text = "NsControlButton1"
         '
-        'WebBrowser1
-        '
-        Me.WebBrowser1.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.WebBrowser1.Location = New System.Drawing.Point(3, 30)
-        Me.WebBrowser1.MinimumSize = New System.Drawing.Size(20, 20)
-        Me.WebBrowser1.Name = "WebBrowser1"
-        Me.WebBrowser1.Size = New System.Drawing.Size(644, 367)
-        Me.WebBrowser1.TabIndex = 0
-        '
         'btnSSH
         '
         Me.btnSSH.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
@@ -201,11 +206,11 @@ Partial Class frmMain
     Friend WithEvents btnMin As Synology_DDSM.NSControlButton
     Friend WithEvents btnMax As Synology_DDSM.NSControlButton
     Friend WithEvents btnClose As Synology_DDSM.NSControlButton
-    Friend WithEvents WebBrowser1 As System.Windows.Forms.WebBrowser
     Friend WithEvents imgSettings As System.Windows.Forms.PictureBox
     Friend WithEvents btnSettings As Synology_DDSM.NSButton
     Friend WithEvents imgSSH As System.Windows.Forms.PictureBox
     Friend WithEvents btnSSH As Synology_DDSM.NSButton
     Friend WithEvents ntfyIcon As System.Windows.Forms.NotifyIcon
-
+    Friend WithEvents WebSession1 As Awesomium.Windows.Forms.WebSessionProvider
+    Friend WithEvents WebControl1 As Awesomium.Windows.Forms.WebControl
 End Class

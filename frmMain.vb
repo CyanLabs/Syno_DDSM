@@ -1,10 +1,12 @@
 ﻿Imports System.Threading
+Imports Awesomium.Windows.Forms
+Imports Awesomium.Core
 
 Public Class frmMain
     Dim IP As String = "192.168.1.205"
-    Private UpdateChecker As System.Threading.Thread = New Thread(AddressOf Updater.IsLatest)
     Dim updated As Boolean = False, newversion As String = ""
-
+    Dim Updater As New Cyanlabs_Updater.Updater
+    Private UpdateChecker As System.Threading.Thread = New Thread(AddressOf Updater.IsLatest)
     Private Sub Form1_Shown(sender As Object, e As EventArgs) Handles MyBase.Shown
         Me.MaximumSize = Screen.PrimaryScreen.WorkingArea.Size
         Me.Size = My.Settings.size
@@ -30,7 +32,12 @@ Public Class frmMain
             UpdateChecker.IsBackground = True
             UpdateChecker.Start()
         End If
-        If My.Settings.IP = "" Then frmSettings.Show() Else WebBrowser1.Navigate("http://" & My.Settings.IP & ":5000")
+        If My.Settings.IP = "" Then
+            frmSettings.Show()
+        Else
+            WebControl1.Source = New Uri("http://" & My.Settings.IP & ":5000")
+        End If
+
     End Sub
     Private Sub NsButton2_Click(sender As Object, e As EventArgs) Handles imgSSH.Click, btnSSH.Click
         Process.Start(Application.StartupPath & "\plink.exe", "root@" & My.Settings.IP)
@@ -55,5 +62,10 @@ Public Class frmMain
         End If
         My.Settings.state = Me.WindowState
         My.Settings.Save()
+        WebCore.Shutdown()
+    End Sub
+
+    Private Sub NsButton1_Click(sender As Object, e As EventArgs)
+        WebControl1.ExecuteJavascriptWithResult("document.cookie;")
     End Sub
 End Class

@@ -4,7 +4,7 @@
         My.Settings.IP = txtIP.Text
         My.Settings.Save()
         If NsCheckBox1.Checked = True Then My.Settings.update = True Else My.Settings.update = False
-        frmMain.WebBrowser1.Navigate("http://" & My.Settings.IP & ":5000")
+        frmMain.WebControl1.Source = New Uri("http://" & My.Settings.IP & ":5000")
         Me.Close()
     End Sub
 
@@ -16,9 +16,5 @@
 
     Private Sub Label2_Click(sender As Object, e As EventArgs) Handles Label2.Click
         Process.Start("http://cyanlabs.co.uk")
-    End Sub
-
-    Private Sub NsCheckBox1_CheckedChanged(sender As Object) Handles NsCheckBox1.CheckedChanged
-
     End Sub
 End Class
